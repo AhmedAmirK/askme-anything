@@ -1,0 +1,24 @@
+<div style="margin-top: 20px; margin-bottom: 20px; padding-top: 70px"align="center" id='frame' class=" mainbox col-md-12 " >
+    <div style="margin-top: 20px;" class="col-md-12"  *ngFor ="let obj of data"> <!-- -->
+       <mdl-card class="demo-card-event" mdl-shadow="2" style="width: 100%;" >
+        <mdl-card-title mdl-card-expand>
+
+     <div align="left" >
+       <p>
+         <b>Question: </b>{{obj.question}}
+         <br /><br />
+         <b>Answer: </b>{{obj.answer}}
+      </p>
+
+     </div>
+      </mdl-card-title>
+        <mdl-card-actions mdl-card-border>
+          <button mdl-button mdl-colored mdl-ripple (click)="delete(obj._id)">
+          Delete
+          </button>
+          <mdl-layout-spacer></mdl-layout-spacer>
+          <mdl-icon>event</mdl-icon>
+        </mdl-card-actions>
+      </mdl-card>
+    </div>
+  </div>

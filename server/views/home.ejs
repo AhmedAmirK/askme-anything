@@ -5,26 +5,15 @@
 </head>
 
 <body>
-  <li> <%= JSON.stringify(user) %> </li>
-
   <form action="/auth/logout">
     <input type="submit" value="logout" />
   </form>
 
   <form method="POST" action="/bookmarks">
      <input type="text" id="bar" name="question" />
-     <button type="submit">post</button>
+     <button type="submit">Send</button>
   </form>
 
-  <form method="DELETE" action="/bookmarks">
-     <input type="text" id="bar" name="question" />
-     <button type="submit">delete</button>
-  </form>
-
-  <form method="POST" action="/askibm">
-     <input type="text" id="bar" name="question" />
-     <button type="submit">post</button>
-  </form>
 
 </body>
 </html>

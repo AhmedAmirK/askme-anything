@@ -1,0 +1,79 @@
+
+<div [ngSwitch]="view" style="padding-top: 70px">
+  <!-- Question view -->
+    <template id="question" [ngSwitchCase]="'question'">
+
+<div align = center class="col-md-6 col-md-offset-3">
+  <h3   class = "text-center">
+    Bluemix Ask me anyhting
+  </h3>
+  <h6  class = "blurb">
+    Askme-anything is a web application that delivers a huge number of frequently asked questions about IBM and its Bluemix platform.
+  </h6>
+</div>
+
+  <div style="margin-top: 40px; margin-bottom: 40px;" align = center class="col-md-6 col-md-offset-3" style="color:white;">
+    <mdl-textfield id="textArea"  placeholder="Enter your question here" [(ngModel)]="q" rows="2" maxrows="2" style="color:white"></mdl-textfield>
+    <div style="text-align: right;">
+      <button (click) = " switch() " mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple disabled="false">
+          Ask
+      </button>
+    </div>
+  </div>
+
+</template>
+<!-- answer view -->
+<template [ngSwitchCase]="'answer'">
+  <div align = center class="col-md-6 col-md-offset-3" >
+    <mdl-textfield id="textArea"  rows="2" maxrows="2" floating-label [(ngModel)]="q"></mdl-textfield>
+    <div style="text-align: right;">
+      <!-- <mdl-spinner active="true"></mdl-spinner> -->
+      <button (click) = " switch() " mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple disabled="false" >
+          Ask Again
+        <mdl-icon>send</mdl-icon>
+      </button>
+    </div>
+  </div>
+  <!-- answers -->
+  <div style="margin-top: 20px; margin-bottom: 20px;"align="center" id='frame' class=" mainbox col-md-12 " >
+      <div style="margin-top: 20px;" class="col-md-12"  *ngFor = " let answer of AnswersData" > <!-- -->
+         <mdl-card class="demo-card-event" mdl-shadow="2" style="width: 100%;" >
+          <mdl-card-title mdl-card-expand>
+      <div class = "col-md-1">
+        <div class="row">
+        <div class="col">
+          <button (click) = "voteUp()"  mdl-button mdl-button-type="icon" mdl-ripple>
+          <i class="material-icons" title="This answer is useful and clear">keyboard_arrow_up</i>
+        </button>
+        </div>
+        <div class="w-100"></div>
+        <div class="col">{{rate}}</div>
+        <div class="w-100"></div>
+        <div class="col">
+          <button  (click) = "voteDown()" mdl-button mdl-button-type="icon" mdl-ripple>
+            <i class="material-icons" title="This answer is not useful and clear">keyboard_arrow_down</i>
+          </button>
+        </div>
+      </div>
+      </div>
+             <div class = "col-md-11">
+               <p>
+                 {{answer}}
+              </p>
+             </div>
+        </mdl-card-title>
+          <mdl-card-actions mdl-card-border>
+            <button mdl-button mdl-colored mdl-ripple (click)="bookmark(answer)">
+            Bookmark
+            </button>
+            <button mdl-button mdl-colored mdl-ripple (click)="Copy(answer)">
+            Copy
+            </button>
+            <mdl-layout-spacer></mdl-layout-spacer>
+            <mdl-icon>event</mdl-icon>
+          </mdl-card-actions>
+        </mdl-card>
+      </div>
+    </div>
+</template>
+</div>

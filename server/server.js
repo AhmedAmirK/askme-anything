@@ -14,7 +14,7 @@ var passportConfigurator = new PassportConfigurator(app);
 
 var bodyParser = require('body-parser');
 
-var flash      = require('express-flash');
+var flash = require('express-flash');
 
 // attempt to build the providers/passport config
 var config = {};
