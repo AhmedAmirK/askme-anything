@@ -8,10 +8,12 @@ import { ContactComponent } from './components/contact/contact.component';
 import { AboutComponent } from './components/about/about.component';
 import { BookmarkComponent } from './components/bookmark/bookmark.component';
 
+import { AuthGuard } from './guards/auth.guard';
 
 const APP_ROUTES  = [
   // {path: '#home', redirectTo: '', pathMatch: 'full'},
   {path: 'home',component: HomeComponent},
+  {path: 'home/:token/:userId', component: HomeComponent},
   {path: 'about',component: AboutComponent},
   {path: 'contact', component: ContactComponent},
   {path: 'bookmark', component: BookmarkComponent},
@@ -27,7 +29,7 @@ const APP_ROUTES  = [
       { useHash: true }
     )
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [],
   exports: [RouterModule]
 })

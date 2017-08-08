@@ -9,16 +9,17 @@
       </button>
       <span style="color:black" class="navbar-brand">  <img align = "left" src="assets/images/bluemix.png">Bluemix Ask me anything </span>
     </div>
-    <div class="navbar-collapse collapse navbar-responsive-collapse">
+
+    <div class="navbar-collapse collapse navbar-responsive-collapse" >
       <ul class="nav navbar-nav">
         <li [routerLinkActive]="['active']"><a [routerLink]="['home']" >Home</a></li>
         <li [routerLinkActive]="['active']"><a [routerLink]="['bookmark']">Bookmarks</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
+        <li class="dropdown" *ngIf="!loggedIn">
           <a href="javascript:void(0)" class="dropbtn">Login</a>
           <div class="dropdown-content">
-            <a href="/auth/facebook" class="loginBtn loginBtn--facebook btn  ">
+            <a href= "/auth/facebook" class="loginBtn loginBtn--facebook btn  ">
               &emsp;&emsp;Login with Facebook
             </a>
             <a href="/auth/linkedin" class="loginBtn loginBtn--linkedin btn btn-default trial btn-responsive">
@@ -26,20 +27,32 @@
             </a>
           </div>
         </li>
-        <!-- *ngIf="authService.loggedIn()" -->
-        <li [routerLinkActive]="['active']"><a href="/auth/logout" (click)="onLogoutClick()">Logout</a></li>
-        <li [routerLinkActive]="['active']"><a href="https://www.ibm.com/za-en/marketplace/cloud-platform"  target="_blank" >About</a></li>
-        <li [routerLinkActive]="['active']"><a [routerLink]="['contact']">Contact us</a></li>
+        <li [routerLinkActive]="['active']" *ngIf="loggedIn">
+          <a href="/auth/logout" (click)="onLogoutClick()">Logout</a>
+        </li>
+        <li [routerLinkActive]="['active']">
+          <a href="https://www.ibm.com/za-en/marketplace/cloud-platform"  target="_blank" >About</a>
+        </li>
+        <li [routerLinkActive]="['active']">
+          <a [routerLink]="['contact']">Contact us</a>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
 <router-outlet></router-outlet>
-<!-- <app-login></app-login> -->
-<footer style="margin-bottom:2cm">
-  <div align = center class="col-md-6 col-md-offset-3">
+
+<!-- <footer style="margin-top:2px; margin-bottom:2px; height: 60px;">
+  <div align = center class="col-md-6 col-md-offset-3 footer navbar-fixed-bottom">
     <p>
       Built with IBM Watson   | Discovery   |  @2017 IBM
     </p>
   </div>
-</footer>
+</footer> -->
+
+<div class="navbar navbar-default navbar-fixed-bottom" align="center" style="background-color:#04213d;   border-color:#04213d;">
+    <div class="container" style="color:white;">
+      <p style="margin-top:15px;">Built with IBM Watson   | Discovery   |  @2017 IBM    </p>
+    </div>
+</div>
+

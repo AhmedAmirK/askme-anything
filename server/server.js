@@ -64,6 +64,7 @@ for (var s in config) {
 }
 
 //Handling requests
+app.use(loopback.token());
 app.use(routes);
 
 app.start = function() {

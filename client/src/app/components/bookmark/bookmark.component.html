@@ -1,5 +1,5 @@
-<div style="margin-top: 20px; margin-bottom: 20px; padding-top: 70px"align="center" id='frame' class=" mainbox col-md-12 " >
-    <div style="margin-top: 20px;" class="col-md-12"  *ngFor ="let obj of data"> <!-- -->
+<div style="margin-top: 20px; margin-bottom: 100px; padding-top: 70px"align="center" id='frame' class=" mainbox col-md-12 " >
+    <div style="margin-top: 20px;" class="col-md-12"  *ngFor ="let obj of bookmarks; let i = index "> <!-- -->
        <mdl-card class="demo-card-event" mdl-shadow="2" style="width: 100%;" >
         <mdl-card-title mdl-card-expand>
 
@@ -13,7 +13,7 @@
      </div>
       </mdl-card-title>
         <mdl-card-actions mdl-card-border>
-          <button mdl-button mdl-colored mdl-ripple (click)="delete(obj._id)">
+          <button mdl-button mdl-colored mdl-ripple (click)="delete(obj._id,i)">
           Delete
           </button>
           <mdl-layout-spacer></mdl-layout-spacer>

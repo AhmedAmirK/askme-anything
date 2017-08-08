@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MdlModule } from 'angular2-mdl';
 import { AppRoutingModule } from './app-routing.module';
+import { SDKBrowserModule } from './shared/sdk/index';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -12,9 +13,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { AboutComponent } from './components/about/about.component';
 import { BookmarkComponent } from './components/bookmark/bookmark.component';
 
-import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
-import { NotAuthGuard } from './guards/notAuth.guard';
 
 @NgModule({
   declarations: [
@@ -30,9 +29,10 @@ import { NotAuthGuard } from './guards/notAuth.guard';
     FormsModule,
     HttpModule,
     MdlModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SDKBrowserModule.forRoot()
   ],
-  providers: [AuthService, AuthGuard, NotAuthGuard],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -8,8 +8,6 @@ const AskIBMSchema = new schema({
   userID:String,
   name:String,
   email:String,
-  country:String,
-  company:String,
   account_type:String
 });
 

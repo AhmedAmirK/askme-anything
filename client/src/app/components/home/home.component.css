@@ -9,6 +9,42 @@
   vertical-align: middle;
 
 }
+
+.img-circle {
+    width: 70px;
+    height: 70px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.loader {
+    border: 10px solid #04213d; /* Blue */
+    border-top: 10px solid #FFFFFF; /* white */
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 1s linear infinite;
+    margin-top: 70px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+img {
+  display: inline-block;
+  max-width:70px;
+  max-height:70px;
+  min-height: 70px;
+  min-width: 70px;
+  width: auto;
+  height: auto;
+}
+
+
 .blurb {
     font-size: 140%;
     word-spacing: 2px;

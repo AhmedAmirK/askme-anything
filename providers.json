@@ -12,7 +12,7 @@
   "facebook-login": {
     "provider": "facebook",
     "module": "passport-facebook",
-    "profileFields": ["id", "displayName", "email", "gender"],
+    "profileFields": ["id", "displayName", "email"],
     "clientID": "1369366599812720",
     "clientSecret": "28785eec070d5e69a6ac3e059d81ce24",
     "callbackURL": "/auth/facebook/callback",
@@ -33,7 +33,7 @@
     "callbackPath": "/link/facebook/callback",
     "successRedirect": "/auth/account",
     "failureRedirect": "/login",
-    "scope": ["email", "user_likes"],
+    "scope": ["email", "user_location", "user_about_me"],
     "link": true,
     "failureFlash": true
   },
