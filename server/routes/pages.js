@@ -103,7 +103,7 @@ router.post('/question', function(req, res, next){
                    reject(err);
                  } else {
                    for(var i=0; i < data.results.length; i++){
-                     if(data.results[i].score > 0.49){
+                     if(data.results[i].score > 0.2){
                          Services.push(data.results[i]);
                      }
                    }
@@ -167,16 +167,21 @@ router.post('/askibm', ensureLoggedIn('/'), function(req, res, next){
 });
 
 //_________________________Bookmarks_____________________________
-router.get('/bookmarks', ensureLoggedIn('/'), function(req, res, next){
-  db_users.find({
-    userID:req.user.profiles[0].profile._json.id,
-    account_type:req.user.profiles[0].profile.provider} ,function(err,data){
-        if(err) {
-            res.status(500).send(err);
-        } else {
-            res.send(data[0].data);
-        }
-    });
+router.get('/bookmarks', function(req, res, next){
+  if(req.user){
+    db_users.find({
+      userID:req.user.profiles[0].profile._json.id,
+      account_type:req.user.profiles[0].profile.provider} ,function(err,data){
+          if(err) {
+              res.status(500).send(err);
+          } else {
+              res.send(data[0].data);
+          }
+      });
+  }
+  else{
+    res.status(404).send("No user loggedin");
+  }
 });
 
 router.post('/bookmarks', ensureLoggedIn('/'), function(req, res, next){

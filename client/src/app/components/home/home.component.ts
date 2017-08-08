@@ -50,8 +50,8 @@ export class HomeComponent {
       this.q = localStorage.getItem('question');
     }
 
-   
-      
+
+
    this.hometitle = "Askme-anything is a web application that delivers a huge number of frequently asked questions about IBM and its Bluemix platform.";
 
     this.route.params.subscribe( (p: Params) => {
@@ -70,8 +70,8 @@ export class HomeComponent {
           this.auth.save();
           this.appcomponent.setLoggedIn(true);
         }
-      
-      
+
+
     });
 
       if(this.auth.getAccessTokenId()){
@@ -98,7 +98,9 @@ export class HomeComponent {
    }
 
    localStorage.setItem('question',this.q);
-    
+
+   this.noAnswers= false;
+
     this.http.post('/question', {question: this.q}).map(res=>res.json()).subscribe(data => {
 
       if(data){
@@ -110,13 +112,13 @@ export class HomeComponent {
         this.show = "Show More";
 
         this.AnswersData = data.answers;
-        
+
         this.ServiceData = data.services;
 
        if (this.ServiceData.length==0 || this.ServiceData===undefined) {
          this.noServices= true;
        } else this.noServices=false;
-    
+
 
        if(this.ServiceData.length<=3){
          this.servicesViewed = this.ServiceData;
@@ -167,7 +169,7 @@ export class HomeComponent {
         break;
     }
 
-    
+
   }
 
   askAgain(){

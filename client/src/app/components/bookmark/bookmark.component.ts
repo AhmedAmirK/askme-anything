@@ -1,9 +1,10 @@
-import { Component} from '@angular/core';
+import { Component,  Optional} from '@angular/core';
 import { NgSwitchCase } from '@angular/common';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { LoopBackAuth } from '../../shared/sdk/services';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
+import { AppComponent } from '../../app.component'
 
 @Component({
   selector: 'app-bookmark',
@@ -14,7 +15,11 @@ export class BookmarkComponent {
 
   private bookmarks;
   private authorization;
-  constructor(private http: Http, private router: Router, private auth: LoopBackAuth) {
+  constructor(
+    private http: Http,
+    private router: Router,
+    @Optional() private appcomponent: AppComponent,
+    private auth: LoopBackAuth) {
 
     if(this.auth.getAccessTokenId()){
 
@@ -26,19 +31,20 @@ export class BookmarkComponent {
       //       .subscribe(data => {this.bookmarks = data; console.log('bookmarks received!'); },
       //         error => {
       //            console.log(error);
-      //    });        
+      //    });
       // }, error => {
-         
+
       // })
 
       this.http.get('/bookmarks', { headers : this.authorization }).map( (res: Response) => res.json())
       .subscribe(data => {this.bookmarks = data; console.log('bookmarks received!'); },
         error => {
-           console.log(error);
+            this.appcomponent.onLogoutClick();
+            
          });
 
     }
-   
+
 
      else this.router.navigate(['/']);
 
