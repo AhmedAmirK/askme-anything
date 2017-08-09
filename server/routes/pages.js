@@ -99,9 +99,9 @@ router.post('/question', function(req, res, next){
                 reject(err);
               } else {
                 for(var i=0; i < data.results.length; i++){
-                  if(data.results[i].score > 0.8){
-                      Answers.push(striptags(data.results[i].AcceptedAnswer));
-                  }
+                  var temp = {asnwer:striptags(data.results[i].AcceptedAnswer
+                    , score:ata.results[i].score};
+                  Answers.push(temp);
                 }
                 resolve(Answers);
               }
