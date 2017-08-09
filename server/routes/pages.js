@@ -28,20 +28,23 @@ router.get('/auth/account', ensureLoggedIn('/'), function(req, res, next) {
               //create new user
               var provider = req.user.profiles[0].profile.provider;
               var userid = req.user.profiles[0].profile._json.id;
-              var email,username;
+              var email,username,image;
               if(provider === "facebook"){
                 username = req.user.profiles[0].profile._json.name;
                 email = req.user.profiles[0].profile._json.email;
+                image = req.user.profiles[0].profile._json.picture.data.url;
               }
               else{
                 username = req.user.profiles[0].profile._json.formattedName;
                 email = req.user.profiles[0].profile._json.emailAddress;
+                image = req.user.profiles[0].profile._json.pictureUrl;
               }
               var newUser = new db_users({
                 account_type:provider,
                 userID:userid,
                 username:username,
                 email:email,
+                image:image
               });
               newUser.save(function(err) {
                 if (err){
@@ -67,6 +70,19 @@ router.get('/auth/logout', function(req, res, next) {
   res.redirect('/');
 });
 
+router.get('/userdata', ensureLoggedIn('/'), function(req, res, next){
+  var provider = req.user.profiles[0].profile.provider;
+  var username,image;
+  if(provider === "facebook"){
+    username = req.user.profiles[0].profile._json.name;
+    image = req.user.profiles[0].profile._json.picture.data.url;
+  }
+  else{
+    username = req.user.profiles[0].profile._json.formattedName;
+    image = req.user.profiles[0].profile._json.pictureUrl;
+  }
+  res.send({username: username, image:image});
+});
 //_________________________Ask a Question_____________________________
 //search for a query
 router.post('/question', function(req, res, next){

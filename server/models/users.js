@@ -8,6 +8,7 @@ const UsersSchema = new schema({
   userID:String,
   username:String,
   email:String,
+  image:String,
   data:[{question:String, answer:String}]
 });
 

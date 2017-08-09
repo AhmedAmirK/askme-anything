@@ -1,13 +1,19 @@
+
+// ANGULAR IMPORTS
 import { Component, Optional } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgSwitchCase } from '@angular/common';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { AppComponent } from '../../app.component';
+
+//LOOPBACK SDK IMPORTS
 import { SDKToken } from '../../shared/sdk/models';
 import { LoopBackAuth } from '../../shared/sdk/services';
 import { LoopBackConfig }  from '../../shared/sdk';
 
-import { AppComponent } from '../../app.component'
+// EXTERNAL LIBRARIES
 import 'rxjs/add/operator/map';
+import  anchorme  from 'anchorme';
 import {Clipboard} from 'ts-clipboard';
 
 @Component({
@@ -16,17 +22,16 @@ import {Clipboard} from 'ts-clipboard';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  view: string;
-  q: string;
-  Answers: any;
-  dataViewed: any[];
-  AnswersData: string[];
+  view: string;           //Shows Question Template or Answers Template
+  q: string;              //Question user entered
+  dataViewed: any[];         //Answers viewed
+  AnswersData: string[];  //Answers Recieved from the server
   ServiceData: any[];
   servicesViewed: any[];
   noAnswers: boolean;
   noServices: boolean;
   loading: boolean;
-  show: string;
+  show: string;           //Show more or less button
   more: boolean;
   hometitle: string;
 
@@ -64,18 +69,26 @@ export class HomeComponent {
           let token = new SDKToken();
           token.id = t;
           token.userId = user;
-          console.log(token);
           this.auth.setToken(token);
           this.auth.setRememberMe(true);
           this.auth.save();
-          this.appcomponent.setLoggedIn(true);
+
+          this.http.get('/userdata').map(res => res.json()).subscribe( data => {
+
+            localStorage.setItem('image', data.image);
+
+            localStorage.setItem('username',data.username);
+
+            this.appcomponent.setLoggedIn(true);
+
+          }, err => console.log(err));
+
         }
 
 
     });
 
       if(this.auth.getAccessTokenId()){
-        console.log(this.auth.getAccessTokenId());
          this.appcomponent.setLoggedIn(true);
        }
        else this.appcomponent.setLoggedIn(false);
@@ -83,7 +96,7 @@ export class HomeComponent {
 
   }
 
-
+//User Asked a Question, fetch data and switch view to answers
   switch(){
 
     if(this.q){
@@ -104,8 +117,6 @@ export class HomeComponent {
     this.http.post('/question', {question: this.q}).map(res=>res.json()).subscribe(data => {
 
       if(data){
-
-        console.log(data);
 
         this.loading = false;
 
@@ -149,13 +160,13 @@ export class HomeComponent {
       }
 
     }, error => {
-      alert('Something went wrong!');
       console.log(error);
     });
 
     this.view = "answer";
   }
 
+//Clicked Show more or less button
   viewMore(show){
 
     switch (show) {
@@ -185,12 +196,10 @@ export class HomeComponent {
 
     this.http.post('/askibm', { question: this.q}).subscribe (res => {
 
-      //localStorage.removeItem('question');
       this.hometitle = "Your question was sent to IBM and you will receive an answer shortly. Sorry for any inconveniences";
       this.view = "question";
 
     }, err => {
-      alert('Couldnt Ask IBM!');
       console.log(err);
     });
 
@@ -205,7 +214,7 @@ export class HomeComponent {
 
     this.http.post('/bookmarks', {question: this.q, ans: answer}).subscribe(res => {
       this.dataViewed[index].bookmarked = true;
-    }, err => alert(err));
+    }, err => console.log(err));
   }
 
   Copy(answer){

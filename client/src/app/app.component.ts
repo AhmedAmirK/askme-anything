@@ -14,6 +14,8 @@ import 'rxjs/add/operator/map';
 export class AppComponent {
 
   loggedIn: boolean;
+  image: string;
+  username:string;
 
   constructor(
     private router: Router,
@@ -29,6 +31,12 @@ export class AppComponent {
   }
 
   setLoggedIn(b :boolean){
+
+    if(b){
+      this.image = localStorage.getItem('image');
+      this.username = localStorage.getItem('username');
+    }
+
     this.loggedIn = b;
   }
 

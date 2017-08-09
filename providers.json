@@ -12,7 +12,7 @@
   "facebook-login": {
     "provider": "facebook",
     "module": "passport-facebook",
-    "profileFields": ["id", "displayName", "email"],
+    "profileFields": ["id", "displayName", "email", "picture"],
     "clientID": "1369366599812720",
     "clientSecret": "28785eec070d5e69a6ac3e059d81ce24",
     "callbackURL": "/auth/facebook/callback",
@@ -40,7 +40,7 @@
   "linkedin-login": {
     "provider": "linkedin",
     "module": "passport-linkedin-oauth2",
-    "profileFields": ["id", "formatted-name", "email-address"],
+    "profileFields": ["id", "formatted-name", "email-address", "picture-url"],
     "clientID": "86do6j4l5sl6ea",
     "clientSecret": "dARRZ0NqUSQKvizY",
     "callbackURL": "/auth/linkedin/callback",

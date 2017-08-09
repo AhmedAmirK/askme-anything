@@ -27,6 +27,13 @@
             </a>
           </div>
         </li>
+
+        <li *ngIf="loggedIn" style="color:black;">
+          <label style="margin-top:13px"> {{username}} </label>
+          <div class="image-circle">
+            <img src={{image}} />
+          </div>
+        </li>
         <li [routerLinkActive]="['active']" *ngIf="loggedIn">
           <a href="/auth/logout" (click)="onLogoutClick()">Logout</a>
         </li>
@@ -55,4 +62,3 @@
       <p style="margin-top:15px;">Built with IBM Watson   | Discovery   |  @2017 IBM    </p>
     </div>
 </div>
-
