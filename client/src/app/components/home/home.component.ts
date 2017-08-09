@@ -1,10 +1,11 @@
 
 // ANGULAR IMPORTS
-import { Component, Optional } from '@angular/core';
+import { Component, Optional, ViewChildren, ElementRef, QueryList, AfterViewChecked } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgSwitchCase } from '@angular/common';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { AppComponent } from '../../app.component';
+import { AnswerComponent } from '../answer/answer.component'
 
 //LOOPBACK SDK IMPORTS
 import { SDKToken } from '../../shared/sdk/models';
@@ -21,11 +22,12 @@ import {Clipboard} from 'ts-clipboard';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements AfterViewChecked{
   view: string;           //Shows Question Template or Answers Template
   q: string;              //Question user entered
   dataViewed: any[];         //Answers viewed
-  AnswersData: string[];  //Answers Recieved from the server
+  lowerScoreData: any[];
+  AnswersData: any[];  //Answers Recieved from the server
   ServiceData: any[];
   servicesViewed: any[];
   noAnswers: boolean;
@@ -34,6 +36,10 @@ export class HomeComponent {
   show: string;           //Show more or less button
   more: boolean;
   hometitle: string;
+  showingLowScores: boolean;
+  lowScores:boolean;
+
+   //@ViewChildren("answer", { read: ElementRef }) containers:  QueryList<ElementRef>;
 
   constructor(
     private http: Http,
@@ -50,6 +56,8 @@ export class HomeComponent {
     this.servicesViewed = [];
     this.view = "question";
     this.show = "Show More";
+    this.showingLowScores = false;
+    this.lowScores = false;
 
     if(localStorage.getItem('question')){
       this.q = localStorage.getItem('question');
@@ -95,6 +103,7 @@ export class HomeComponent {
 
 
   }
+
 
 //User Asked a Question, fetch data and switch view to answers
   switch(){
@@ -144,17 +153,23 @@ export class HomeComponent {
 
        //Getting Answers and Setting bookmarks
         this.dataViewed= [];
+        this.lowerScoreData = [];
         this.AnswersData.forEach( answer => {
           var a = {
-            ans: answer,
+            ans: anchorme(answer.answer),
+            score: (answer.score.toFixed(1)) *100 ,
             bookmarked: false
           }
+          if(a.score>=80)
           this.dataViewed.push(a);
+        else {this.lowerScoreData.push(a); this.lowScores= true; }
         });
 
-       if(this.dataViewed.length==0){
+       if(this.dataViewed.length==0 && this.lowerScoreData.length==0){
          this.noAnswers= true;
        }
+
+
 
 
       }
@@ -164,6 +179,7 @@ export class HomeComponent {
     });
 
     this.view = "answer";
+   
   }
 
 //Clicked Show more or less button
@@ -183,12 +199,28 @@ export class HomeComponent {
 
   }
 
+  getStyle(score){
+
+    if(score>80){
+      return "green";
+    }
+
+    if(score>60){
+      return "orange";
+    }
+
+    return "red";
+
+  }
+
   askAgain(){
     this.servicesViewed = [];
     this.dataViewed = [];
     this.loading = true;
     this.noServices = true;
     this.more = false;
+    this.showingLowScores = false;
+    this.lowScores = false;
     this.switch();
   }
 
@@ -205,6 +237,13 @@ export class HomeComponent {
 
   }
 
+  viewLowScores(){
+    this.dataViewed = this.dataViewed.concat(this.lowerScoreData);
+
+    this.showingLowScores = true;
+    
+  }
+
   bookmark(answer, index){
 
     if (!this.appcomponent.loggedIn) {
@@ -219,5 +258,17 @@ export class HomeComponent {
 
   Copy(answer){
     Clipboard.copy(answer.ans);
+  }
+
+  ngAfterViewChecked () {
+
+    let elements = document.getElementsByClassName('answer');
+
+    for(var i=0; i< elements.length;i++){
+      let element = elements[i];
+      let answer = this.dataViewed[i].ans;
+      element.innerHTML =answer;
+    }
+
   }
 }

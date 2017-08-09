@@ -14,6 +14,7 @@ import { AboutComponent } from './components/about/about.component';
 import { BookmarkComponent } from './components/bookmark/bookmark.component';
 
 import { AuthGuard } from './guards/auth.guard';
+import { AnswerComponent } from './components/answer/answer.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { AuthGuard } from './guards/auth.guard';
     ContactComponent,
     AboutComponent,
     BookmarkComponent,
+    AnswerComponent,
   ],
   imports: [
     BrowserModule,
