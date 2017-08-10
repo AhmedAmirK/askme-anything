@@ -99,8 +99,9 @@ router.post('/question', function(req, res, next){
                 reject(err);
               } else {
                 for(var i=0; i < data.results.length; i++){
-                  var temp = {answer:striptags(data.results[i].AcceptedAnswer)
-                    , score:data.results[i].score};
+                  var temp = {answer:striptags(data.results[i].AcceptedAnswer),
+                    score:data.results[i].score,
+                    link:"https://stackoverflow.com/questions/"+data.results[i].id};
                   Answers.push(temp);
                 }
                 resolve(Answers);
