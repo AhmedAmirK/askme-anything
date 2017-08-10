@@ -13,9 +13,10 @@
 </div>
 
   <div style="margin-top: 40px; margin-bottom: 40px;" align = center class="col-md-6 col-md-offset-3" style="color:white;">
-    <mdl-textfield id="textArea" (keydown.enter)= "switch();false" placeholder="Enter your question here" [(ngModel)]="q" rows="2" style="color:white;"></mdl-textfield>
+    <mdl-textfield id="textArea" (keydown.enter)= "switch();false" placeholder="Enter your question here" [(ngModel)]="q" rows="2" style="color:white;" autofocus ></mdl-textfield>
     <div style="text-align: right;">
-      <button (click) = " switch() " mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple >
+      <button (click) = " switch() " mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple
+      [disabled]="!q">
           Ask
       </button>
     </div>
@@ -28,7 +29,7 @@
 <template [ngSwitchCase]="'answer'">
   <div class="col-md-12">
   <div align = center class="col-md-6 col-md-offset-3" >
-    <mdl-textfield id="textArea"  (keydown.enter)= "askAgain() ;false" rows="2" floating-label [(ngModel)]="q" style="border-bottom:#03A9F4;" ></mdl-textfield>
+    <mdl-textfield id="textArea"  (keydown.enter)= "askAgain() ;false" rows="2" floating-label [(ngModel)]="q" autofocus></mdl-textfield>
     <div style="text-align: right;">
       <!-- <mdl-spinner active="true"></mdl-spinner> -->
       <button (click) = " askAgain() " *ngIf="!loading" mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple disabled="false" >
@@ -50,13 +51,13 @@
 
   <div  align="center" class="content-grid mdl-grid" style="color:white;">
     <div class="mdl-cell col-md-4" *ngFor=" let service of servicesViewed" style="color:white;">
-    <a href={{service.link}} style="color:white;">
+    <a href={{service.link}}>
       <div class="image-circle" style="margin:10px;">
         <img src= {{service.img}}  />
       </div>
-      <label>{{service.title}}</label>
     </a>
-    <p style="color:white;">{{service.decription}}</p>
+    <label>{{service.title}}</label>
+    <p>{{service.decription}}</p>
     </div>
     <div align="center" style="width:100%;">
       <a (click)= "viewMore(show)" style="border-radius:25px" mdl-button mdl-button-type="raised"
@@ -75,10 +76,12 @@
       <div style="margin-top: 20px; " class="col-md-12"  *ngFor = " let answer of dataViewed; let i = index " >
          <mdl-card class="demo-card-event" mdl-shadow="2" style="width: 100%;" >
           <mdl-card-title mdl-card-expand>
-             <div class = "col-md-11">
-               <p>
-                 {{answer.ans}}
-              </p>
+            <div class="col-md-1 col-sm-1" align="center">
+              <label>Score: </label> <br>
+              <label [style.color]="getStyle(answer.score)" style="font-size: x-large">{{answer.score}}%</label>
+            </div>
+             <div class = "col-md-11 col-sm-11">
+             <p class="answer"></p>
              </div>
         </mdl-card-title>
           <mdl-card-actions mdl-card-border>
@@ -93,6 +96,9 @@
             <mdl-icon>event</mdl-icon>
           </mdl-card-actions>
         </mdl-card>
+      </div>
+      <div align="center" style="width:100%;">
+        <a (click)= "viewLowScores()" style="border-radius:25px; margin-top:50px;" *ngIf="!showingLowScores && lowScores && !loading" mdl-button mdl-button-type="raised" mdl-colored="primary">Show results that scored less than 80</a>
       </div>
     </div>
 </template>
