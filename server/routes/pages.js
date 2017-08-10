@@ -130,6 +130,7 @@ router.post('/question', function(req, res, next){
 
     Promise.all([ discovery_search, discovery_services ])
     .then(function(values){
+      console.log(values[1]);
       res.contentType = 'json';
       res.send({
         answers: values[0],
