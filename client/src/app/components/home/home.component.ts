@@ -127,6 +127,8 @@ export class HomeComponent implements AfterViewChecked{
 
       if(data){
 
+        console.log(data)
+
         this.loading = false;
 
         this.show = "Show More";
@@ -156,7 +158,16 @@ export class HomeComponent implements AfterViewChecked{
         this.lowerScoreData = [];
         this.AnswersData.forEach( answer => {
           var a = {
-            ans: anchorme(answer.answer),
+            ans: anchorme(answer.answer, {attributes:[
+              {
+                name : "style",
+                value: "color:blue"
+              },
+              {
+                name : "target",
+                value: "_blank"
+              }
+             ]}),
             score: (answer.score.toFixed(1)) *100 ,
             bookmarked: false
           }
