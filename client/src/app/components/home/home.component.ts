@@ -169,6 +169,7 @@ export class HomeComponent implements AfterViewChecked{
               }
              ]}),
             score: (answer.score.toFixed(1)) *100 ,
+            link: answer.link,
             bookmarked: false
           }
           if(a.score>=80)
