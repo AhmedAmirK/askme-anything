@@ -31,7 +31,7 @@
         <li *ngIf="loggedIn" style="color:black;">
           <label style="margin-top:13px"> {{username}} </label>
           <div class="image-circle" >
-            <img src={{image}} style="float:left" />
+            <img src={{image}} style="float:left" width="40" height="40" />
           </div>
         </li>
         <li [routerLinkActive]="['active']" *ngIf="loggedIn">

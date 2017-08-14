@@ -1,4 +1,3 @@
-
 <div [ngSwitch]="view" style="padding-top: 70px">
   <!-- Question view -->
     <template id="question" [ngSwitchCase]="'question'">
@@ -13,10 +12,15 @@
 </div>
 
   <div style="margin-top: 40px; margin-bottom: 40px;" align = center class="col-md-6 col-md-offset-3" style="color:white;">
-    <mdl-textfield id="textArea" (keydown.enter)= "switch();false" placeholder="Enter your question here" [(ngModel)]="q" rows="2" style="color:white;" autofocus ></mdl-textfield>
-    <div style="text-align: right;">
+  <form (ngSubmit) = " switch() " >
+  <input type="text"  name="search" placeholder="Enter your question here.." [(ngModel)]="q" autofocus >
+</form>
+<div class = "Verticaldivider">
+</div>
+    <!-- <mdl-textfield id="textArea" (keydown.enter)= "switch();false" placeholder="Enter your question here" [(ngModel)]="q" rows="2" style="color:white;" autofocus ></mdl-textfield> -->
+    <div style="text-align: center;">
       <button (click) = " switch() " mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple
-      [disabled]="!q">
+      style="margin-top:10px">
           Ask
       </button>
     </div>
@@ -29,13 +33,18 @@
 <template [ngSwitchCase]="'answer'">
   <div class="col-md-12">
   <div align = center class="col-md-6 col-md-offset-3" >
-    <mdl-textfield id="textArea"  (keydown.enter)= "askAgain() ;false" rows="2" floating-label [(ngModel)]="q" autofocus></mdl-textfield>
+
+
+    <!-- <mdl-textfield id="textArea"  (keydown.enter)= "askAgain() ;false" rows="2" floating-label [(ngModel)]="q" autofocus></mdl-textfield> -->
+    <form (ngSubmit) = " switch() " >
+  <input type="text"  name="search" placeholder="Enter your question here.." [(ngModel)]="q" >
+</form>
     <div style="text-align: right;">
       <!-- <mdl-spinner active="true"></mdl-spinner> -->
       <button (click) = " askAgain() " *ngIf="!loading" mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple disabled="false" >
           Ask Again
       </button>
-      <button (click) = "askIBM()" *ngIf="!loading" style="margin:10px;" mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple [disabled]="!appcomponent.loggedIn" >
+      <button (click) = "askIBM()" *ngIf="!loading" style="margin:10px;" mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple class="askibm" [disabled]="!appcomponent.loggedIn" >
           Ask ibm
       </button>
     </div>
@@ -106,3 +115,4 @@
     </div>
 </template>
 </div>
+ 

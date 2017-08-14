@@ -1,6 +1,6 @@
 
 // ANGULAR IMPORTS
-import { Component, Optional, ViewChildren, ElementRef, QueryList, AfterViewChecked } from '@angular/core';
+import { Component, Optional, ElementRef, AfterViewChecked } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgSwitchCase } from '@angular/common';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
@@ -10,7 +10,6 @@ import { AnswerComponent } from '../answer/answer.component'
 //LOOPBACK SDK IMPORTS
 import { SDKToken } from '../../shared/sdk/models';
 import { LoopBackAuth } from '../../shared/sdk/services';
-import { LoopBackConfig }  from '../../shared/sdk';
 
 // EXTERNAL LIBRARIES
 import 'rxjs/add/operator/map';
@@ -39,7 +38,6 @@ export class HomeComponent implements AfterViewChecked{
   showingLowScores: boolean;
   lowScores:boolean;
 
-   //@ViewChildren("answer", { read: ElementRef }) containers:  QueryList<ElementRef>;
 
   constructor(
     private http: Http,
@@ -48,8 +46,6 @@ export class HomeComponent implements AfterViewChecked{
     private auth: LoopBackAuth,
     @Optional() private appcomponent: AppComponent ) {
 
-    // LoopBackConfig.setBaseURL('http://localhost:3000');
-    // LoopBackConfig.setApiVersion('api');
     this.noServices= true;
     this.loading= true;
     this.more = false;
@@ -168,7 +164,7 @@ export class HomeComponent implements AfterViewChecked{
                 value: "_blank"
               }
              ]}),
-            score: (answer.score.toFixed(1)) *100 ,
+            score: Math.ceil(answer.score*100) ,
             link: answer.link,
             bookmarked: false
           }

@@ -10,6 +10,22 @@
 
 }
 
+input[type=text] {
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #04213d;
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+}
+
+.askibm:disabled {
+  background-color: #0276aa !important;
+}
+
 .img-circle {
     width: 70px;
     height: 70px;
@@ -106,3 +122,5 @@ img {
 .floating-placeholder-float input{
   line-height:3.4em;
 }
+
+
