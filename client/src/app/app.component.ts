@@ -23,6 +23,13 @@ export class AppComponent {
     private auth: LoopBackAuth
     )
   {
+
+    this.http.get('/loggedin').subscribe( res => {}, err => {
+      this.onLogoutClick();
+
+    })
+
+
     if(this.auth.getAccessTokenId()){
       console.log(this.auth.getAccessTokenId());
       this.loggedIn = true;
