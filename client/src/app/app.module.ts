@@ -15,6 +15,7 @@ import { BookmarkComponent } from './components/bookmark/bookmark.component';
 
 import { AuthGuard } from './guards/auth.guard';
 import { AnswerComponent } from './components/answer/answer.component';
+import {Autosize} from 'angular2-autosize/src/autosize.directive';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AnswerComponent } from './components/answer/answer.component';
     AboutComponent,
     BookmarkComponent,
     AnswerComponent,
+    Autosize
   ],
   imports: [
     BrowserModule,

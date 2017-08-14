@@ -12,6 +12,15 @@ var db_users = require("../models/users.js");
 
 //_________________________Login/Logout_____________________________
 //login button clicked
+router.get('/loggedin', function(req, res, next){
+  if(req.user){
+    res.send("User loggedin");
+  }
+  else{
+    res.status(404).send("No user loggedin");
+  }
+});
+
 router.get('/auth/account', ensureLoggedIn('/'), function(req, res, next) {
   if(req.user.profiles[0].profile._json.id){
     //there is an id returned from facebook/linkedin (verified email)
@@ -204,9 +213,16 @@ router.get('/bookmarks', function(req, res, next){
 router.post('/bookmarks', ensureLoggedIn('/'), function(req, res, next){
   //check id there is a body
   if(req.body.constructor === Object && Object.keys(req.body).length !== 0){
+    var link;
+    if(req.body.ans.link){
+      link=req.body.ans.link;
+    }
+    else{
+      link="";
+    }
     var query = {userID: req.user.profiles[0].profile._json.id,
       account_type:req.user.profiles[0].profile.provider},
-      update = {$push:{data:{question:req.body.question, answer:req.body.ans.ans}}},
+      update = {$push:{data:{question:req.body.question, answer:req.body.ans.ans, link:link}}},
       options = { upsert: true, new: true, setDefaultsOnInsert: true };
     db_users.findOneAndUpdate(query, update, options, function(err, result) {
       if (err){

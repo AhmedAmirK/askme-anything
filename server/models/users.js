@@ -9,7 +9,7 @@ const UsersSchema = new schema({
   username:String,
   email:String,
   image:String,
-  data:[{question:String, answer:String}]
+  data:[{question:String, answer:String, link:String}]
 });
 
 User = mongoose.model('user', UsersSchema);

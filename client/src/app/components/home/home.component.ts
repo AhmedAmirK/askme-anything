@@ -37,6 +37,7 @@ export class HomeComponent implements AfterViewChecked{
   hometitle: string;
   showingLowScores: boolean;
   lowScores:boolean;
+  askibmtitle: string;
 
 
   constructor(
@@ -164,7 +165,7 @@ export class HomeComponent implements AfterViewChecked{
                 value: "_blank"
               }
              ]}),
-            score: Math.ceil(answer.score*100) ,
+            score: Math.ceil(answer.score*100),
             link: answer.link,
             bookmarked: false
           }
@@ -259,7 +260,7 @@ export class HomeComponent implements AfterViewChecked{
       return;
     }
 
-    this.http.post('/bookmarks', {question: this.q, ans: answer}).subscribe(res => {
+    this.http.post('/bookmarks', {question: this.q, ans: answer, link: answer.link}).subscribe(res => {
       this.dataViewed[index].bookmarked = true;
     }, err => console.log(err));
   }
@@ -277,6 +278,10 @@ export class HomeComponent implements AfterViewChecked{
       let answer = this.dataViewed[i].ans;
       element.innerHTML =answer;
     }
+
+    if(this.appcomponent.loggedIn)
+      this.askibmtitle = "Send your question to IBM";
+    else this.askibmtitle= "Please Log In first";
 
   }
 }

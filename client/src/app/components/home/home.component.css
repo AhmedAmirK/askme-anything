@@ -10,6 +10,12 @@
 
 }
 
+textarea {
+  overflow-y: auto !important;
+  max-height: 100px !important;
+  resize: none;
+}
+
 input[type=text] {
     width: 100%;
     box-sizing: border-box;
