@@ -14,7 +14,7 @@ var db_users = require("../models/users.js");
 //login button clicked
 router.get('/loggedin', function(req, res, next){
   if(req.user){
-    res.send("User loggedin");
+    res.send();
   }
   else{
     res.status(404).send("No user loggedin");
