@@ -21,8 +21,8 @@ router.get('/loggedin', function(req, res, next){
   }
 });
 
-router.get('/auth/account', ensureLoggedIn('/'), function(req, res, next) {
-  if(req.user.profiles[0].profile._json.id){
+router.get('/auth/account', function(req, res, next) {
+  if(req.user){
     //there is an id returned from facebook/linkedin (verified email)
     db_users.find({userID: req.user.profiles[0].profile._json.id,
     account_type:req.user.profiles[0].profile.provider},function(err,data){

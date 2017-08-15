@@ -5,7 +5,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgSwitchCase } from '@angular/common';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { AppComponent } from '../../app.component';
-import { AnswerComponent } from '../answer/answer.component'
 
 //LOOPBACK SDK IMPORTS
 import { SDKToken } from '../../shared/sdk/models';
@@ -188,7 +187,7 @@ export class HomeComponent implements AfterViewChecked{
     });
 
     this.view = "answer";
-   
+
   }
 
 //Clicked Show more or less button
@@ -250,7 +249,7 @@ export class HomeComponent implements AfterViewChecked{
     this.dataViewed = this.dataViewed.concat(this.lowerScoreData);
 
     this.showingLowScores = true;
-    
+
   }
 
   bookmark(answer, index){
