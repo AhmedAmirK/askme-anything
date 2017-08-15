@@ -32,9 +32,9 @@ export class AppComponent {
 
     if(this.auth.getAccessTokenId()){
       console.log(this.auth.getAccessTokenId());
-      this.loggedIn = true;
+      this.setLoggedIn(true)
     }
-    else this.loggedIn = false;
+    else this.setLoggedIn(false)
   }
 
   setLoggedIn(b :boolean){
@@ -42,6 +42,7 @@ export class AppComponent {
     if(b){
       this.image = localStorage.getItem('image');
       this.username = localStorage.getItem('username');
+      console.log(this.username);
     }
 
     this.loggedIn = b;
@@ -52,7 +53,7 @@ export class AppComponent {
     this.setLoggedIn(false);
     this.auth.clear();
     this.http.get('/auth/logout');
-    //localStorage.clear();
+    localStorage.clear();
     this.router.navigate(['/']); // Navigate back to home page
   }
 
