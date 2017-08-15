@@ -24,14 +24,28 @@ export class AppComponent {
     )
   {
 
-    this.http.get('/loggedin').subscribe( res => {}, err => {
-      this.onLogoutClick();
+    if(this.loggedIn){
 
-    })
+      this.http.get('/loggedin').map(res => res.json()).subscribe( res => {}, err => {
+          this.onLogoutClick();
 
+      });
+    }
+
+    if(this.loggedIn){
+
+      this.http.get('/userdata').map(res => res.json()).subscribe( data => {
+
+        this.image = data.image;
+        this.username = data.username;
+        localStorage.setItem('image',data.image);
+        localStorage.setItem('username',data.username);
+        this.loggedIn = true;
+      }, err => console.log(err));
+
+  }
 
     if(this.auth.getAccessTokenId()){
-      console.log(this.auth.getAccessTokenId());
       this.setLoggedIn(true)
     }
     else this.setLoggedIn(false)
@@ -42,7 +56,10 @@ export class AppComponent {
     if(b){
       this.image = localStorage.getItem('image');
       this.username = localStorage.getItem('username');
-      console.log(this.username);
+
+      if(this.username==null){
+
+      }
     }
 
     this.loggedIn = b;
