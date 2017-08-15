@@ -164,6 +164,7 @@ export class HomeComponent implements AfterViewChecked{
                 value: "_blank"
               }
              ]}),
+            text: answer.answer,
             score: Math.ceil(answer.score*100),
             link: answer.link,
             bookmarked: false
@@ -265,7 +266,7 @@ export class HomeComponent implements AfterViewChecked{
   }
 
   Copy(answer){
-    Clipboard.copy(answer.ans);
+    Clipboard.copy(answer.text);
   }
 
   ngAfterViewChecked () {
